@@ -18,9 +18,15 @@ header {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+main {
+    background-color: deepskyblue;
+    justify-content: center;
+}
+
 .mainImage {
     display: flex;
     justify-content: center;
+    padding: 5px;
     
 }
 
@@ -30,17 +36,24 @@ header {
     /* top: 200px;
     left: 50px; */
     color: rgb(0, 0, 0);
-    height: 200px;
+    height: 100px;
     justify-content: center;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 20px;
 }
 
-/* might not need oops */
-.image {
+
+.imageCan {
     display: flex;
     align-items: center;
-    max-width: 100px;
+    max-width: 200px;
+    height: auto;
+}
+
+.imageTrash {
+    display: flex;
+    align-items: center;
+    max-width: 150px;
     height: auto;
 }
 
@@ -48,6 +61,8 @@ header {
 .buttons {
     display: flex;
     justify-content: center;
+    padding-top: 5px;
+    padding-bottom: 100px;
 }
 
 #button {
@@ -76,4 +91,49 @@ header {
 
 #button li :hover {
     opacity: .8;
+}
+
+.subHead {
+    justify-content: center;
+    font-weight: bold;
+    display: flex;
+    position: static;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.paragraph {
+    display: flex;
+    position: static;
+    padding-left: 100px;
+    padding-right: 100px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    line-height: 50px;
+}
+
+footer {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    display: flex;
+    position: static;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    justify-content: left;
+    background-color: rgb(38, 104, 36);
+    color: rgb(255, 255, 255);
+    
+}
+
+.footerText {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    line-height: 30px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 10px;
 }
