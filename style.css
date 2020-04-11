@@ -12,13 +12,12 @@ header {
     right: 0;
     height: 50px;
     line-height: 50px;
-    background-color: #eee;
+    background-color: rgb(255, 255, 255);
   
 }
 
 header * {
     display: inline;
-    height: 50px;
  }
 
 header ul {
@@ -64,7 +63,7 @@ footer {
     animation:type 3s;
     overflow:hidden;
   white-space:nowrap;
-  border-right:4px solid black
+  /* border-right:4px solid black */
    }
 
 @keyframes type{
