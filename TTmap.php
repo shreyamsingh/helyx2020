@@ -11,8 +11,8 @@ $app['mysql_password'] = "trashtracker123";
 $app['mysql_dbname'] = "map";
 $app['project_id'] = getenv('GCLOUD_PROJECT');
 
-$servername = '127.0.0.1:5432'; // for local testing
-//$servername = null; // to deploy
+//$servername = '127.0.0.1:5432'; // for local testing
+$servername = null; // to deploy
 $username = $app['mysql_user'];
 $password = $app['mysql_password'];
 $dbname = $app['mysql_dbname'];
@@ -67,6 +67,13 @@ mysqli_close($conn);
 								<form method="post" action="form.php">
 									<div class="button">
 										<input type = "submit" name="" value= "Add Trash">
+									</div>
+								</form>
+								</div>
+								<div class="form">
+								<form method="post" action="leaderboard.php">
+									<div class="button">
+										<input type = "submit" name="" value= "Leaderboard">
 									</div>
 								</form>
 								</div>

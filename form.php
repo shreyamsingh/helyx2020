@@ -104,7 +104,7 @@
                     <div style="text-align:center;">
                   <font face = "Lucida Sans">
                     <img src = "https://image.freepik.com/free-vector/cartoon-cute-earth-with-tree-head-hand-drawn_41992-837.jpg" class="avatar">
-                  <p>Enter your coordinates here:</p>
+                  <p>Enter your coordinates here (enter negative values for W or S):</p>
                   <p>Latitude</p>
                   <input type="text" name = "lat" placeholder="Latitude">
                   <p>Longitude</p>
