@@ -50,7 +50,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 	if (empty($row)) {
 		$sql2 = "INSERT INTO pointentries (user, pass, points) VALUES ('$user', '$pass', 0)";
 	  if (mysqli_query($conn, $sql2)) {
-	    header('Location: TTmap.html');
+	    header('Location: TTmap.php');
 	  } else {
 	    echo "Error inserting: " . mysqli_error($conn);
 	  }
@@ -60,7 +60,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 		if ($row['pass'] == $pass) {
 			$sql2 = "UPDATE pointentries SET points = points + 1 WHERE user = '$user'";
 			mysqli_query($conn, $sql2);
-			header('Location: TTmap.html');
+			header('Location: TTmap.php');
 		}
 		else {
 			header('Location: index.php');
