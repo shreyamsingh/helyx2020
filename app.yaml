@@ -1,5 +1,14 @@
 runtime: php
 env: flex
-
 runtime_config:
-  document_root: web
+    document_root: .
+env_variables:
+    APP_LOG: errorlog
+    GOOGLE_STORAGE_BUCKET: "trash-tracker2020.uk.r.appspot.com"
+    MYSQL_USER: "root"
+    MYSQL_PASSWORD: "trashtracker123"
+    MYSQL_DSN: "mysql:dbname=database;unix_socket=/cloudsql/trash-tracker2020:us-central1:database"
+beta_settings:
+    cloud_sql_instances: "trash-tracker2020:us-central1:database"
+resources:
+    disk_size_gb: 20
