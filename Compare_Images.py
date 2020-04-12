@@ -83,20 +83,32 @@ def featureScale(X):
     return X, averages, ranges
 
 def featureMap(X,degree):
-    newInput = np.array([1])
-    for a in range(1,degree):
-        for b in range(0,a):
-            for c in range(0,b):
-                for d in range(0,c):
-                    for e in range(0,d):
-                        for f in range(0,e):
-                            valToAdd = (X[:,0]**(a-b-c-d-e-f)) * (X[:,1]**(b-c-d-e-f)) * (X[:,2]**(c-d-e-f)) * (X[:,3]**(d-e-f)) * (X[:,4]**(e-f)) * (X[:,5]**(f))
-                            print('added value')
+    m = np.size(X,0)
+    newInput = X
+    for a in range(1,degree+1):
+        valToAdd = np.array(X[:,0]**(a))[np.newaxis]
+        newInput = np.append(newInput,np.transpose(valToAdd),axis = 1)
+        for b in range(0,a+1):
+            valToAdd = np.array(X[:,0]**(a-b)) * (X[:,1]**(b))[np.newaxis]
+            newInput = np.append(newInput,np.transpose(valToAdd),axis = 1)
+            for c in range(0,b+1):
+                valToAdd = np.array(X[:,0]**(a-b-c)) * (X[:,1]**(b-c)) * (X[:,2]**(c))[np.newaxis]
+                newInput = np.append(newInput,np.transpose(valToAdd),axis = 1)
+                for d in range(0,c+1):
+                    valToAdd = np.array(X[:,0]**(a-b-c-d)) * (X[:,1]**(b-c-d)) * (X[:,2]**(c-d)) * (X[:,3]**(d))[np.newaxis]
+                    newInput = np.append(newInput,np.transpose(valToAdd),axis = 1)
+                    for e in range(0,d+1):
+                        valToAdd = np.array(X[:,0]**(a-b-c-d-e)) * (X[:,1]**(b-c-d-e)) * (X[:,2]**(c-d-e)) * (X[:,3]**(d-e)) * (X[:,4]**(e))[np.newaxis]
+                        newInput = np.append(newInput,np.transpose(valToAdd),axis = 1)
+                        for f in range(0,e+1):
+                            valToAdd = np.array(X[:,0]**(a-b-c-d-e-f)) * (X[:,1]**(b-c-d-e-f)) * (X[:,2]**(c-d-e-f)) * (X[:,3]**(d-e-f)) * (X[:,4]**(e-f)) * (X[:,5]**(f))[np.newaxis]
+                            #print('added value')
                             # degreeString = 'a{} b{} c{} d{} e{} f{}'
                             # print(degreeString.format(a,b,c,d,e,f))
-                            print(valToAdd)
-                            print()
-                            newInput = np.hstack((newInput,valToAdd))
+                            # print(np.transpose(valToAdd))
+                            # print()
+                            newInput = np.append(newInput,np.transpose(valToAdd),axis = 1)
+    #print(newInput)
     return newInput
 
 def sigmoid(z):
@@ -156,34 +168,70 @@ def dataSize():
     while(osp.exists(fileStr.format(i))):
         i += 1
     return i
+def percentError(y,predictions):
+    m = np.size(y,1)
+    toRet = (y - predictions)
+    toRet = np.absolute(toRet)
+    toRet = np.sum(toRet)
+    return toRet/m
+
+def classifyImages(imageA,imageB,mus1,ranges1,degree,theta,mus2,ranges2):
+    temp = addTrain(imageA,imageB) #2d array containing the starting inputs
+    for i in range(np.size(temp,1)):
+        if ranges1[i] > 10:
+            temp[:,i] -= mus1[i]
+            temp[:,i] /= ranges1[i]
+
+    temp = featureMap(temp,degree)
+    for i in range(np.size(temp,1)):
+        if ranges2[i] > 10:
+            temp[:,i] -= mus2[i]
+            temp[:,i] /= ranges2[i]
+
+    prediction = sigmoid(temp.dot(theta))
+    prediction = np.round(prediction)
+    return prediction
 
 
 x,y = loadData()
-x,mus,ranges = featureScale(x)
-print('data before map')
-print(x)
-print()
-
+x,mus1,ranges1 = featureScale(x)
+# print('data before map')
+# print(x)
+# print()
+#print(mus1)
 x = featureMap(x,6)
-print('data after map')
-print(x)
-print()
+# print('data after map')
+# print(x)
+# print()
 
+x,mus2,ranges2 = featureScale(x)
 init_theta = np.zeros((np.size(x,1),1))
-print('before')
-print(lrCostFunction(init_theta,x,y,.1))
-print()
-for i in range(1000000): #can just implemen fmin_ncg for extra accuracy
-     init_theta = init_theta - lrGradientFunction(init_theta,x,y,.1,1)
+# print('before')
+# print(lrCostFunction(init_theta,x,y,.1))
+# print('percent error(acc stdv)')
 predictions = sigmoid(x.dot(init_theta))
+predictions = np.round_(predictions, decimals=0,)
+# print(percentError(y,predictions))
+# print()
+for i in range(1000000): #can just implemen fmin_ncg for extra accuracy
+     init_theta = init_theta - lrGradientFunction(init_theta,x,y,1,10)
+predictions = sigmoid(x.dot(init_theta))
+print('finished')
+before = cv2.imread('/Users/swesikramineni/Desktop/Hackathon/Test2/before.jpg')
+after = cv2.imread('/Users/swesikramineni/Desktop/Hackathon/Test2/after.jpg')
+
+# print(classifyImages(before,after,mus1,ranges1,6,init_theta,mus2,ranges2))
+# print('after')
+# print(lrCostFunction(init_theta,x,y,.1))
+# print('percent error(acc stdv)')
+predictions = np.round_(predictions, decimals=0,)
+print(percentError(y,predictions))
+#
+# print('predictions')
+# print(predictions)
 
 # init_theta = op.fmin_ncg(lrCostFunction, x0 = init_theta, fprime = lrGradientFunction,
 # args  = (x,y,.1), maxiter = 1000)
-print('after')
-print(lrCostFunction(init_theta,x,y,.1))
-print()
-#print(predictions)
 
-#print(x)
 # x = np.array([[1,0,0],[1,1,0],[1,0,1],[1,1,1]]) #testing or function
 # y = np.array([[0],[1],[1],[1]]) #testing or function
