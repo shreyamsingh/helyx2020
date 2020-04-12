@@ -68,7 +68,8 @@ main {
 #button {
     width: 150px;
     height: 30px;
-    background-image: url(./Media/button.png);
+    /* background-image: url(./Media/button.png); */
+    background-color: rgb(24, 87, 244);
     border: 2px solid rgb(134, 164, 247);
     border-radius: 30px;
     font-size: 14px;
