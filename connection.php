@@ -15,7 +15,8 @@ $app['mysql_dbname'] = "users";
 $app['project_id'] = getenv('GCLOUD_PROJECT');
 
 
-$servername = '127.0.0.1:5432';
+// $servername = '127.0.0.1:5432'; // for local testing
+$servername = null; // to deploy
 $username = $app['mysql_user'];
 $password = $app['mysql_password'];
 $dbname = $app['mysql_dbname'];
