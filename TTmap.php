@@ -26,7 +26,6 @@ $conn = new mysqli($servername, $username, $password, $dbname,
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-echo "\nConnected successfully\n";
 
 if (isset($_POST['lat']) && isset($_POST['long'])) {
     $lat = $_POST['lat'];
@@ -60,9 +59,19 @@ mysqli_close($conn);
         </header>
 
         <main>
-            <div class="blurb">
-                <p>An intelligent tracker to aid in the cleanup of discarded waste</p>
-            </div>
+						<div class="top">
+	            <div class="blurb">
+	                <p class="text">An intelligent tracker to aid in the cleanup of discarded waste</p>
+							</div>
+								<div class="form">
+								<form method="post" action="form.php">
+									<div class="button">
+										<input type = "submit" name="" value= "Add Trash">
+									</div>
+								</form>
+								</div>
+						</div>
+
 
             <!-- Map scripts -->
             <div id="map"></div>
