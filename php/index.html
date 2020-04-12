@@ -4,17 +4,22 @@
     <meta charset="UTF-8">
     <title>Submission Form</title>
 </head>
-  <link rel ="stylesheet" type = "text/css" href="index.css">
+  <link rel ="stylesheet" type = "text/css" href="style.css">
 <body>
-  <font face="ink free">
-          <h1><center><b>Trash Submission</b></center></h1>
-          <h2>1. Please upload an image of the trash you found before you took action.</h2>
-            <form action="upload.php" method="post" enctype="multipart/form-data">
-        Upload a File:
-        <input type="file" name="the_file" id="fileToUploadBefore">
-        <input type="submit" name="submit" value="Start Upload">
-    </form>
-</font>
+  <div class = wrapper>
+  <h1><center><b>Trash Submission</b></center></h1>
+    <h2>Upload an image of the trash you found before you took action.</h2>
 
+  <form action="upload.php" method="post" enctype="multipart/form-data">
+    Upload a File:
+    <div class = fileInput>
+      <input type="file" name="the_file" id="fileToUploadBefore">
+    </div>
+        
+    <div class = submitButton>
+      <input type="submit" name="submit" value="Start Upload">
+    </div>
+  </form>
+  </div> 
 </body>
 </html>
