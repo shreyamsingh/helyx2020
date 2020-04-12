@@ -14,9 +14,8 @@ $app['mysql_password'] = "trashtracker123";
 $app['mysql_dbname'] = "users";
 $app['project_id'] = getenv('GCLOUD_PROJECT');
 
-
-// $servername = '127.0.0.1:5432'; // for local testing
-$servername = null; // to deploy
+$servername = '127.0.0.1:5432'; // for local testing
+//$servername = null; // to deploy
 $username = $app['mysql_user'];
 $password = $app['mysql_password'];
 $dbname = $app['mysql_dbname'];
@@ -44,12 +43,12 @@ echo "hello, world";
 if (isset($_POST['username']) && isset($_POST['password'])) {
   $user = $_POST['username'];
   $pass = hash("sha256", $_POST['password']);
-	$sql = "SELECT pass FROM entries WHERE user = '$user'";
+	$sql = "SELECT pass FROM pointentries WHERE user = '$user'";
 	echo $user;
 	$result = mysqli_query($conn, $sql);
 	$row = mysqli_fetch_array($result);
 	if (empty($row)) {
-		$sql2 = "INSERT INTO entries (user, pass) VALUES ('$user', '$pass')";
+		$sql2 = "INSERT INTO pointentries (user, pass, points) VALUES ('$user', '$pass', 0)";
 	  if (mysqli_query($conn, $sql2)) {
 	    header('Location: TTmap.html');
 	  } else {
@@ -59,6 +58,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
 	else {
 		if ($row['pass'] == $pass) {
+			$sql2 = "UPDATE pointentries SET points = points + 1 WHERE user = '$user'";
+			mysqli_query($conn, $sql2);
 			header('Location: TTmap.html');
 		}
 		else {
